@@ -1,0 +1,40 @@
+
+
+<!-- <ng-template #createOrderTemplate> -->
+  <form [formGroup]="createOrderForm">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <label class="required form-label">Operation description</label>
+        <textarea class="form-control" formControlName="OperationDescription" rows="5"></textarea>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="required">Start Date</label>
+        <div class="input-group">
+          <input type="text" class="form-control" [matDatepicker]="startDatePicker" (focus)="startDatePicker.open()" formControlName="StartDate" />
+          <span class="input-group-text" (click)="startDatePicker.open()">
+            <i class="fa fa-calendar"></i>
+          </span>
+        </div>
+        <mat-datepicker #startDatePicker="matDatepicker"></mat-datepicker>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label class="required">End Date</label>
+        <div class="input-group">
+          <input type="text" class="form-control" [matDatepicker]="endDatePicker" (focus)="endDatePicker.open()" formControlName="EndDate" />
+          <span class="input-group-text" (click)="endDatePicker.open()">
+            <i class="fa fa-calendar"></i>
+          </span>
+        </div>
+        <mat-datepicker #endDatePicker="matDatepicker"></mat-datepicker>
+      </div>
+
+      <div class="col-md-1 mb-3">
+        <label>Progress</label>
+        <div class="input-group">
+          <input type="number" min="0" max="100" class="form-control" formControlName="Progress"/>
+          <span class="input-group-text fw-bold">%</span>
+        </div>
+      </div>
+    </div>
+  </form>
+<!-- </ng-template> -->

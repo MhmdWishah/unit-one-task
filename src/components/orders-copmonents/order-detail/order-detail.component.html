@@ -1,0 +1,53 @@
+<!-- Detail: list of items to work on. Each item should have the following fields:
+ Description, location (dropdown list with locations to choose from), progress %
+(initially 0) -->
+<table class="table table-light table-striped">
+  <thead>
+    <tr>
+      <th style="width: 75%;">Description</th>
+      <th>location</th>
+      <th>progress</th>
+      <th>#</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="detailsList$ | async as details">
+    <tr class="table-primary" [formGroup]="orderDetailForm">
+      <td style="width: 75%;">
+        <div class="col-md-12">
+          <input type="text" class="form-control" formControlName="Description"
+            [ngClass]="!formControls['Description']?.value?.length && (formControls['Description']?.touched || submitted) ? 'is-invalid' : ''"/>
+        </div>
+      </td>
+      <td>
+        <div class="col-md-12">
+          <select class="form-select" formControlName="Location" [ngClass]="!formControls['Location']?.value?.length && (formControls['Location']?.touched || submitted) ? 'is-invalid' : ''">
+            <option value="" selected>select Location</option>
+            <option *ngFor="let location of locations" [value]="location?.LocationCode">{{location?.LocationName}}</option>
+          </select>
+        </div>
+      </td>
+      <td>
+        <div class="col-md-12 input-group">
+          <input type="number" min="0" max="100" class="form-control" formControlName="Progress"
+            [ngClass]="!formControls['Progress']?.value?.length && (formControls['Progress']?.touched || submitted) ? 'is-invalid' : ''"/>
+          <span class="input-group-text fw-bold">%</span>
+        </div>
+      </td>
+      <td>
+        <a role="button" class="btn btn-primary rounded-5 btn-sm mt-1" (click)="addDetail()">
+          <i class="fa fa-plus"></i>
+        </a>
+      </td>
+    </tr>
+    <tr *ngFor="let detail of details">
+      <td style="width: 75%;">{{detail?.Description}}</td>
+      <td>{{detail?.Location}}</td>
+      <td>{{detail?.Progress}}</td>
+      <td>
+        <a role="button" class="btn btn-danger rounded-5 btn-sm mt-1">
+          <i class="fa fa-trash"></i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>

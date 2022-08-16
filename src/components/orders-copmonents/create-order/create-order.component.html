@@ -1,0 +1,32 @@
+<p class="h4">Create Order</p>
+<mat-accordion>
+  <!-- start : order header -->
+  <mat-expansion-panel class="bg-light mb-3">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <p class="h5 mt-2">Header of the order</p>
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="container-fluid col-md-12">
+      <app-order-header></app-order-header>
+    </div>
+  </mat-expansion-panel>
+  <!-- end : order header -->
+
+  <!-- start : order detail -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header class="bg-light ">
+      <mat-panel-title>
+        <p class="h5 mt-2">Detail of the order</p>
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="container-fluid col-md-12 py-2">
+      <app-order-detail></app-order-detail>
+    </div>
+  </mat-expansion-panel>
+  <!-- end : order detail -->
+</mat-accordion>
