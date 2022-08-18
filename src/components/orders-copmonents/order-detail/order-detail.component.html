@@ -1,10 +1,10 @@
 <!-- Detail: list of items to work on. Each item should have the following fields:
  Description, location (dropdown list with locations to choose from), progress %
 (initially 0) -->
-<table class="table table-light table-striped">
+<table class="table table-light table-striped border border-2 border-light">
   <thead>
     <tr>
-      <th style="width: 75%;">Description</th>
+      <th style="width: 68%;">Description</th>
       <th>location</th>
       <th>progress</th>
       <th>#</th>
@@ -12,15 +12,15 @@
   </thead>
   <tbody *ngIf="detailsList$ | async as details">
     <tr class="table-primary" [formGroup]="orderDetailForm">
-      <td style="width: 75%;">
+      <td>
         <div class="col-md-12">
           <input type="text" class="form-control" formControlName="Description"
-            [ngClass]="!formControls['Description']?.value?.length && (formControls['Description']?.touched || submitted) ? 'is-invalid' : ''"/>
+            [ngClass]="formControls['Description']?.errors?.['required'] && (formControls['Description']?.touched || submitted) ? 'is-invalid' : ''"/>
         </div>
       </td>
       <td>
         <div class="col-md-12">
-          <select class="form-select" formControlName="Location" [ngClass]="!formControls['Location']?.value?.length && (formControls['Location']?.touched || submitted) ? 'is-invalid' : ''">
+          <select class="form-select" formControlName="LocationCode" [ngClass]="formControls['LocationCode']?.errors?.['required'] && (formControls['LocationCode']?.touched || submitted) ? 'is-invalid' : ''">
             <option value="" selected>select Location</option>
             <option *ngFor="let location of locations" [value]="location?.LocationCode">{{location?.LocationName}}</option>
           </select>
@@ -29,7 +29,7 @@
       <td>
         <div class="col-md-12 input-group">
           <input type="number" min="0" max="100" class="form-control" formControlName="Progress"
-            [ngClass]="!formControls['Progress']?.value?.length && (formControls['Progress']?.touched || submitted) ? 'is-invalid' : ''"/>
+            [ngClass]="formControls['Progress']?.errors?.['required'] && (formControls['Progress']?.touched || submitted) ? 'is-invalid' : ''"/>
           <span class="input-group-text fw-bold">%</span>
         </div>
       </td>
@@ -39,15 +39,22 @@
         </a>
       </td>
     </tr>
-    <tr *ngFor="let detail of details">
-      <td style="width: 75%;">{{detail?.Description}}</td>
-      <td>{{detail?.Location}}</td>
-      <td>{{detail?.Progress}}</td>
-      <td>
-        <a role="button" class="btn btn-danger rounded-5 btn-sm mt-1">
-          <i class="fa fa-trash"></i>
-        </a>
-      </td>
-    </tr>
+    <ng-container *ngIf="details?.length; else noRecords">
+      <tr *ngFor="let detail of details; let i=index">
+        <td>{{detail?.Description}}</td>
+        <td>{{detail?.LocationName}}</td>
+        <td>{{detail?.Progress}}</td>
+        <td>
+          <a role="button" class="btn btn-danger rounded-5 btn-sm mt-1" (click)="removeDetailHandle(i)">
+            <i class="fa fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+    </ng-container>
+    <ng-template #noRecords>
+      <tr>
+        <td colspan="5" class="table-active" style="text-align: center;">No Orders to display!</td>
+      </tr>
+    </ng-template>
   </tbody>
 </table>

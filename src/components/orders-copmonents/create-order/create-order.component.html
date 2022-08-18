@@ -1,32 +1,64 @@
-<p class="h4">Create Order</p>
-<mat-accordion>
-  <!-- start : order header -->
-  <mat-expansion-panel class="bg-light mb-3">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <p class="h5 mt-2">Header of the order</p>
-      </mat-panel-title>
-      <mat-panel-description>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <div class="container-fluid col-md-12">
-      <app-order-header></app-order-header>
-    </div>
-  </mat-expansion-panel>
-  <!-- end : order header -->
 
-  <!-- start : order detail -->
-  <mat-expansion-panel>
-    <mat-expansion-panel-header class="bg-light ">
-      <mat-panel-title>
-        <p class="h5 mt-2">Detail of the order</p>
-      </mat-panel-title>
-      <mat-panel-description>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <div class="container-fluid col-md-12 py-2">
-      <app-order-detail></app-order-detail>
+<div class="panel">
+  <div class="panel-header bg-light">
+    <div class="panel-header-content">
+      <div class="panel-header-icon">
+        <i class="fa fa-plus"></i>
+      </div>
+      <div class="panel-header-title">
+        <p class="h4 mt-2">Create Order</p>
+      </div>
+
+      <div class="panel-header-description justify-content-end">
+        <button type="button" class="btn btn-primary" (click)="createOrderHandle()">
+          <div class="d-flex align-items-center">
+            <mat-icon class="mat-18 mx-1">save</mat-icon>
+            <span class="mx-1">Create Order</span>
+          </div>
+        </button>
+      </div>
     </div>
-  </mat-expansion-panel>
-  <!-- end : order detail -->
-</mat-accordion>
+  </div>
+  <div class="panel-content">
+    <div class="panel-content-body">
+      <div class="container-fluid py-2">
+        <mat-accordion>
+
+          <!-- start : order header -->
+          <mat-expansion-panel class="border border-light-primary" expanded="true">
+            <mat-expansion-panel-header class="bg-light">
+              <mat-panel-title>
+                <p class="h5 mt-2">Header of the order</p>
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="container-fluid">
+              <app-order-header [(headerOrderForm)]="headerOrderForm"></app-order-header>
+            </div>
+          </mat-expansion-panel>
+          <!-- end : order header -->
+
+          <!-- start : order detail -->
+          <mat-expansion-panel class="border border-light-primary">
+            <mat-expansion-panel-header class="bg-light">
+              <mat-panel-title>
+                <p class="h5 mt-2">Detail of the order</p>
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="container-fluid py-2">
+              <app-order-detail [(detailsList)]="detailsList"></app-order-detail>
+            </div>
+            <!-- <mat-action-row class="px-2">
+              <button mat-raised-button color="primary" (click)="setSelectedPanel(0)">Next</button>
+            </mat-action-row> -->
+          </mat-expansion-panel>
+          <!-- end : order detail -->
+
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<ng-container *ngIf="control">
+  <ng-container *ngIf="control?.errors">
+    <div class="invalid-feedback" *ngIf="control?.errors?.['required'] && (control?.touched || control?.dirty || submitted)">
+      this field is required!
+    </div>
+  </ng-container>
+</ng-container>

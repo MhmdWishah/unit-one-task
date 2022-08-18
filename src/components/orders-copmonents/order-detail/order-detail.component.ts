@@ -1,6 +1,6 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Location, OrderDetail } from 'src/models/orders.modal';
 
 @Component({
@@ -9,10 +9,14 @@ import { Location, OrderDetail } from 'src/models/orders.modal';
   styleUrls: ['./order-detail.component.sass']
 })
 export class OrderDetailComponent implements OnInit {
-  private detailsList: BehaviorSubject<OrderDetail[]|undefined> = new BehaviorSubject<OrderDetail[]|undefined>([]);
+
+  @Input() detailsList: BehaviorSubject<OrderDetail[]|undefined> = new BehaviorSubject<OrderDetail[]|undefined>([]);
+  @Output() detailsListChange = new EventEmitter<BehaviorSubject<OrderDetail[]|undefined>>();
+
   get detailsList$(): Observable<OrderDetail[]|undefined>{
     return this.detailsList.asObservable();
   }
+
   submitted: boolean = false;
   locations: Location[] = [
     {
@@ -39,7 +43,7 @@ export class OrderDetailComponent implements OnInit {
   initForm(){
     this.orderDetailForm = this.fb.group({
       Description: ["", [Validators.required]],
-      Location: ["", [Validators.required, Validators.min(0),]],
+      LocationCode: ["", [Validators.required, Validators.min(0),]],
       Progress: [0, [Validators.min(0), Validators.max(100)]],
     })
   }
@@ -48,7 +52,13 @@ export class OrderDetailComponent implements OnInit {
     this.submitted = true;
     if(this.orderDetailForm.valid){
       const list = this.detailsList.getValue();
-      list?.push(this.orderDetailForm.value);
+      list?.push({
+        ...this.orderDetailForm.value,
+        LocationName: this.locations.find(
+          location => this.orderDetailForm?.value?.LocationCode == location?.LocationCode
+        )?.LocationName
+      });
+      console.log("list:",list)
       this.detailsList.next(list);
       this.clearForm();
     }
@@ -61,5 +71,10 @@ export class OrderDetailComponent implements OnInit {
   clearForm(){
     this.orderDetailForm.reset();
     this.submitted = false;
+  }
+
+  removeDetailHandle(index: number){
+    const filteredList = this.detailsList.getValue()?.filter((ele: OrderDetail, i: number) => i !== index);
+    this.detailsList.next([...filteredList!]);
   }
 }

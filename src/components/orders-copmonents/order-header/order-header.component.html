@@ -1,11 +1,12 @@
 
 
 <!-- <ng-template #createOrderTemplate> -->
-  <form [formGroup]="createOrderForm">
+  <form [formGroup]="headerOrderForm">
     <div class="row">
       <div class="col-md-12 mb-3">
         <label class="required form-label">Operation description</label>
         <textarea class="form-control" formControlName="OperationDescription" rows="5"></textarea>
+        <app-required-validation-feedback [control]="formControls['OperationDescription']" headerOrderForm></app-required-validation-feedback>
       </div>
       <div class="col-md-2 mb-3">
         <label class="required">Start Date</label>
@@ -16,6 +17,7 @@
           </span>
         </div>
         <mat-datepicker #startDatePicker="matDatepicker"></mat-datepicker>
+        <app-required-validation-feedback [control]="formControls['StartDate']" headerOrderForm></app-required-validation-feedback>
       </div>
       <div class="col-md-2 mb-3">
         <label class="required">End Date</label>
@@ -26,9 +28,10 @@
           </span>
         </div>
         <mat-datepicker #endDatePicker="matDatepicker"></mat-datepicker>
+        <app-required-validation-feedback [control]="formControls['EndDate']" headerOrderForm></app-required-validation-feedback>
       </div>
 
-      <div class="col-md-1 mb-3">
+      <div class="col-md-2 mb-3">
         <label>Progress</label>
         <div class="input-group">
           <input type="number" min="0" max="100" class="form-control" formControlName="Progress"/>

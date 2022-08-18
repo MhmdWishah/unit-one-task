@@ -1,2 +1,62 @@
 .home-container
   height: 100vh
+
+.home-container
+  // background-image: url("../../assets/images/5124669.jpg")
+  background-repeat: no-repeat, repeat
+  background-size: cover
+  background-position: center
+
+nav
+  opacity: 0.95
+  height: 4.5rem
+  position: fixed
+  width: 100%
+  background: #008694d6
+  top: 0
+  left: 0
+
+
+.btn-svg-icon
+  width: 33px
+  height: 33px
+
+span.btn-icon
+  display: inline-block
+  width: 39px !important
+  height: 39px !important
+  padding: 1px !important
+  text-align: center
+  // box-sizing: border-box
+
+svg
+  position: absolute
+  left: 0
+  top: 0
+  fill: none
+  stroke: #fff
+  stroke-dasharray: 150 480
+  stroke-dashoffset: 150
+  transition: 1s ease-in-out
+
+
+.btn:hover
+  transition: 1s ease-in-out
+  background: #4F95DA
+
+
+.btn:hover svg
+  stroke-dashoffset: -480
+
+.btn
+  outline: none
+  transition: 1s ease-in-out
+  position: absolute
+  height: 55px
+  width: 207px
+
+.eng-btn
+  left: 20%
+
+.for-btn
+  right: 20%

@@ -1,8 +1,27 @@
-<div class="home-container container-fluid d-flex justify-content-center align-items-center bg-light gap-5">
-  <a role="button" class="btn btn-primary" (click)="handleEnterClicked('eng')">
-    Enter as Engineers
-  </a>
-  <a role="button" class="btn btn-info" (click)="handleEnterClicked('foremen')">
-    Enter as Foremen
-  </a>
+<div class="home-container container-fluid px-0">
+  <header>
+    <nav class="d-flex align-items-center">
+      <a role="navigation" class="btn btn-primary eng-btn" (click)="handleEnterClicked('eng')">
+        <svg width="206px" height="54px">
+          <polyline points="205,1 205,53 1,53 1,1 205,1" class="bg-line" />
+          <polyline points="205,1 205,53 1,53 1,1 205,1" class="hl-line" />
+        </svg>
+        <span>Enter as Engineer</span>
+        <span class="btn-icon rounded-5 border border-2 border-info shadow-sm bg-light mx-2">
+          <img class="btn-svg-icon rounded-4" src = "../../assets/icons/svg/engineer-worker-svgrepo-com.svg"/>
+        </span>
+      </a>
+
+      <a role="navigation" class="btn btn-primary for-btn" (click)="handleEnterClicked('foremen')">
+        <svg width="206px" height="54px">
+          <polyline points="205,1 205,53 1,53 1,1 205,1" class="bg-line" />
+          <polyline points="205,1 205,53 1,53 1,1 205,1" class="hl-line" />
+        </svg>
+        <span class="btn-icon rounded-5 border border-2 border-info shadow-sm bg-light mx-2">
+          <img class="btn-svg-icon rounded-4" src = "../../assets/icons/svg/engineer-svgrepo-com.svg"/>
+        </span>
+        <span>Enter as Foremen</span>
+      </a>
+    </nav>
+  </header>
 </div>

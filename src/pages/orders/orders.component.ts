@@ -1,3 +1,6 @@
+import { UserType } from './../../models/global.model';
+import { Observable } from 'rxjs';
+import { GlobalService } from './../../services/global.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -8,8 +11,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class OrdersComponent implements OnInit {
   createOrderForm!: FormGroup;
-  constructor(private fb: FormBuilder) {
 
+  userType$: Observable<UserType|undefined>;
+  constructor(private globalService: GlobalService) {
+    this.userType$ = globalService.userType$;
   }
 
   ngOnInit() {

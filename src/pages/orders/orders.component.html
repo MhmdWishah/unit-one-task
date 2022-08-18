@@ -1,5 +1,9 @@
 <div class="container-fluid">
-  <div class="col-md-12">
+  <div class="container-fluid" *ngIf="(userType$ | async) == 'eng'">
     <app-create-order></app-create-order>
+  </div>
+
+  <div class="container-fluid">
+    <app-orders-list></app-orders-list>
   </div>
 </div>

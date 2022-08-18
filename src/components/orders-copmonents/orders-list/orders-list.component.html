@@ -1,0 +1,80 @@
+<div class="panel">
+  <div class="panel-header bg-light">
+    <div class="panel-header-content">
+      <div class="panel-header-icon">
+        <i class="  fa fa-list-ul"></i>
+      </div>
+      <div class="panel-header-title">
+        <p class="h4 mt-2">Orders List</p>
+      </div>
+    </div>
+  </div>
+  <div class="panel-content">
+    <div class="panel-content-body">
+      <div class="container-fluid py-2">
+        <table class="table table-striped table-light border border-2 border-light">
+          <thead>
+            <tr>
+              <th style="width: 65%;">Operation Description</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th style="width: 17%;">Progress</th>
+              <th style="width: 8%; text-align: center;" *ngIf="(userType$ | async) == 'eng'">#</th>
+            </tr>
+          </thead>
+          <ng-container *ngIf="ordersList$ | async as orders">
+            <tbody>
+              <ng-container *ngIf="orders?.length; else noRecords">
+                <tr *ngFor="let order of orders">
+                  <td>{{order?.OrderHeader?.OperationDescription}}</td>
+                  <td>{{order?.OrderHeader?.StartDate | date : 'MM/dd/yyyy'}}</td>
+                  <td>{{order?.OrderHeader?.EndDate | date : 'MM/dd/yyyy'}}</td>
+                  <td>
+                    <div
+                      class="container-fluid d-flex gap-2 px-0"
+                      *ngIf="!progressToEdit[order['ID']]; else editProgressTemplate">
+
+                      <div class="container-fluid px-0 d-flex flex-column align-items-center">
+                        <span>{{order?.OrderHeader?.Progress}}%</span>
+                        <mat-progress-bar mode="determinate" [value]="order?.OrderHeader?.Progress"></mat-progress-bar>
+                      </div>
+                      <button *ngIf="(userType$ | async) == 'eng'" style="width: 20%;" type="button" class="btn btn-primary rounded-5 btn-sm mt-1" matTooltip="Edit progress" (click)="startEditProgress(order)">
+                        <i class="fa fa-edit"></i>
+                      </button>
+                    </div>
+                    <ng-template #editProgressTemplate>
+                      <div class="container-fluid d-flex gap-1 px-0" *ngIf="(userType$ | async) == 'eng'">
+                        <div class="input-group">
+                          <input type="number" min="0" max="100" class="form-control" [(ngModel)]="progressToEdit[order['ID']].progress"
+                            [ngClass]="(!progressToEdit[order['ID']].progress && progressToEdit[order['ID']].progress !== 0) || !(progressToEdit[order['ID']].progress >= 0 && progressToEdit[order['ID']].progress <= 100)  ? 'is-invalid' : ''"/>
+                          <span class="input-group-text fw-bold">%</span>
+                        </div>
+                        <button type="button" class="btn btn-success rounded-5 btn-sm my-1" matTooltip="Save changes" (click)="saveProgress(order)">
+                          <i class="fa fa-save"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger rounded-5 btn-sm my-1" matTooltip="Cancel changes" (click)="cancelEditProgress(order)">
+                          <i class="fa fa-times"></i>
+                        </button>
+                      </div>
+                    </ng-template>
+
+                  </td>
+                  <td style="text-align: center;" *ngIf="(userType$ | async) == 'eng'">
+                    <button type="button" class="btn btn-danger rounded-5 btn-sm mt-1" matTooltip="Delete order" (click)="removeOrderHandle(order)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+              <ng-template #noRecords>
+                <tr>
+                  <td colspan="5" class="table-active" style="text-align: center;">No Orders to display!</td>
+                </tr>
+              </ng-template>
+            </tbody>
+          </ng-container>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
