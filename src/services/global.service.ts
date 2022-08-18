@@ -18,4 +18,7 @@ export class GlobalService {
   get userType$(): Observable<UserType|undefined>{
     return this.userTypeBehaviorSubject.asObservable();
   }
+  get userType(): UserType|undefined{
+    return this.userTypeBehaviorSubject.getValue();
+  }
 }
